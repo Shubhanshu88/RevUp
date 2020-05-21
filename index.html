@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RevUp</title>
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-randomizer-components@3.0.2/dist/aframe-randomizer-components.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/alvinwan/aframe-low-poly@0.0.5/dist/aframe-low-poly.min.js"></script>
+    <script src="RevUp.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+<!--         Asset Management System And Mixins -->
+        <img id="texture" crossorigin="anonymous" src="https://cdn.glitch.com/a172229b-2631-4007-84e1-4bbf55384d53%2Ftexture1.jpg?v=1569150465886" />
+        
+        <a-mixin id="jeep" gltf-model="./gltf/rework/jeep/Jeep.gltf"></a-mixin>
+        <a-mixin id="log" gltf-model="./gltf/rework/log/PUSHILIN_log.gltf"></a-mixin>
+        <a-mixin id="rock" gltf-model="./gltf/rework/rock/PUSHILIN_rock.gltf"></a-mixin>
+        <a-mixin id="road" gltf-model="./gltf/rework/road/CUPIC_ROAD.gltf"></a-mixin>
+        <a-mixin id="tree01" gltf-model="./gltf/rework/tree01/tree01.gltf"></a-mixin>
+      </a-assets>
+
+      <!-- Container -->
+      <a-entity id="obs-container" position="0 0 0" >
+
+      <a-entity visible="false">
+        <a-entity id="template-obs-center" 
+            shadow scale="1.7 1.7 1.7" position="1 0.6 -4">
+            <a-entity mixin="rock" class="obs-rock"></a-entity>
+        </a-entity>
+        <a-entity id="template-obs-left" 
+            shadow scale="1.7 1.7 1.7" position="-1 0.6 -4">
+            <a-entity mixin="rock" class="obs-rock"></a-entity>
+        </a-entity>
+        <a-entity id="template-obs-right" 
+            shadow scale="1.7 1.7 1.7" position="3 0.6 -4">
+            <a-entity mixin="rock" class="obs-rock"></a-entity>
+        </a-entity>
+      </a-entity>
+
+      <!-- Start -->
+      <a-box id="start-button" start-cursor geometry="depth:0.5; height:1; width:1.25" position="1 3 0" color="blue">
+      <a-entity id="inner-text" scale="3 3 3" position="0 0 0.250" text="value: Hover here to Start;color:black;align:center;"></a-entity>
+      <a-entity id="inner-text" scale="3 3 3" position="0 -0.850 0.250" text="value: Drag mouse to move cursor;color:black;align:center;"></a-entity>
+      </a-box>    
+
+      <a-entity mixin="road" class="path-odd" position="1 0 -480" scale="0.025 0.02 1.014"></a-entity>
+      <a-entity mixin="road" class="path-even" position="1 0 -1480" scale="0.025 0.02 1.014"></a-entity>
+      
+      <!-- Environment -->
+      <lp-plane class="env-odd" max-amplitude="0.5 0 0.23" position="0 0 -480" min-amplitude="-0.5 0 -0.5" rotation="-90 0 0" color="green" height="1000" width="100" low-poly-plane="segmentsHeight:500;segmentsWidth:50;"></lp-plane>
+      <lp-plane class="env-even" max-amplitude="0.5 0 0.23" position="0 0 -1480" min-amplitude="-0.5 0 -0.5" rotation="-90 0 0" color="green" height="1000" width="100" low-poly-plane="segmentsHeight:500;segmentsWidth:50;"></lp-plane>
+      <a-sky color="skyblue"></a-sky>
+      
+    <!-- Camera -->
+    <a-entity class="camera-wrapper" camera-move position="0 0 2">
+      <a-entity id="player-wagon" playergetboundingclient aframe mixin="jeep" scale="0.1 0.1 0.1" rotation="0 180 0" position="1 0.22 -2.8"></a-entity>
+      <a-camera lane-controls class="camera-root" position="1 1.8 0">
+        <a-entity id="cursor-mobile" cursor="fuse: true; fuseTimeout: 250"
+          position="0 0 -1"
+          geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+          material="color: white; shader: flat"
+          scale="0.5 0.5 0.5">
+        </a-entity>
+      </a-camera>
+    </a-entity>
+  
+    </a-scene>
+  </body>
+</html>
