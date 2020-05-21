@@ -193,8 +193,7 @@ var countInd = 0;
         }
 
         if (!isGameRunning) return 0;
-
-        if((sight - 2.2) >= position.z && position.z > (sight - 2.5) && obs_position_index == player_position_index) {
+        if((sight - 2) >= position.z && position.z > (sight - 3.5) && obs_position_index == player_position_index) {
           gameOver();
         }
       });
